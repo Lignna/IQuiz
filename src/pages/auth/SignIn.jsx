@@ -1,31 +1,34 @@
 import react from 'react';
 import './style/SignIn.css';
 import { Link, useNavigate } from 'react-router-dom';
+import AuthAPI from '../../api/auth';
+import { useUserContext } from '../../context/UserContext';
 
 const SignIn = () => {
     const [username, setUsername] = react.useState('');
     const [password, setPassword] = react.useState('');
     const [error, setError] = react.useState('');
+    const userCtx = useUserContext();
     const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         setError('');
 
-        try {
-            console.log('Đăng nhập với: ', username, password);
+        console.log("username: " + username)
+        console.log("password: " + password)
 
-            if (username && password) {
-                console.log("Đăng nhập thành công!");
-                navigate('/home');
-            } else {
-                setError('Vui lòng nhập tên đăng nhập và mật khẩu!');
-            }
-        } catch (err) {
-            console.error("Lỗi đăng nhập: ", err);
-            setError('Đăng nhập không thành công!');
-        }
-
+        AuthAPI.handleSignIn(username, password)
+            .then(res => {
+                console.log("res.status: " + res.status)
+                console.log("res.message: " + res.message);
+                if (res.status === "success") {
+                    userCtx.init(username)
+                    navigate('/home');
+                } else {
+                    setError(res.message);
+                }
+            })
     };
     return (
         <div className="signin-container">

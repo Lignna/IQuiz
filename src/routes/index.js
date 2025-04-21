@@ -1,12 +1,12 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SignIn from '../features/Auth/SignIn';
-import SignUp from '../features/Auth/SignUp';
-import ForgetPassword from '../features/Auth/ForgetPassword';
-import Home from '../features/Home/Home';
-import CreateMCQ from '../features/Quiz/CreateMCQ';
-import CreateFlashcard from '../features/Quiz/CreateFlashcard';
-import DoMCQ from '../features/Quiz/DoMCQ';
-import DoFlashcard from '../features/Quiz/DoFlashcard';
+import SignIn from '../pages/auth/SignIn';
+import SignUp from '../pages/auth/SignUp';
+import ForgetPassword from '../pages/auth/ForgetPassword';
+import Home from '../pages/home/Home';
+import CreateMCQ from '../pages/Quiz/CreateMCQ';
+import CreateFlashcard from '../pages/Quiz/CreateFlashcard';
+import DoMCQ from '../pages/Quiz/DoMCQ';
+import DoFlashcard from '../pages/Quiz/DoFlashcard';
 
 const AppRoutes = () => {
   return (
@@ -18,8 +18,8 @@ const AppRoutes = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/create-mcq" element={<CreateMCQ />} />
         <Route path="/create-flashcard" element={<CreateFlashcard />} />
-        <Route path="/do-mcq/:quizId" element={<DoMCQ />} />
-        <Route path="/do-flashcard/:quizId" element={<DoFlashcard />} />
+        <Route path="/mcqs/:quizId" element={<DoMCQ />} />
+        <Route path="/flashcards/:quizId" element={<DoFlashcard />} />
       </Routes>
     </Router>
   );

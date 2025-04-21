@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './style/SignUp.css';
+import AuthAPI from '../../api/auth';
 
 const SignUp = () => {
     const [username, setUsername] = React.useState('');
@@ -12,26 +13,43 @@ const SignUp = () => {
     const handleSubmit = (e) => {
         e.preventDefault();
         setError('');
+        
+        console.log("username: " + username)
+        console.log("password: " + password)
 
         if (password !== confirmPassword) {
             setError('Mật khẩu xác nhận không khớp!');
             return;
         }
 
-        try {
-            console.log('Đăng ký với: ', username, password);
+        AuthAPI.handleSignUp(username, password)
+            .then(res => {
+                if (res.status === "success") {
+                    navigate('/home');
+                } else {
+                    setError(res.message);
+                }
+            })
 
-            if (username && password) {
+        // if (password !== confirmPassword) {
+        //     setError('Mật khẩu xác nhận không khớp!');
+        //     return;
+        // }
+
+        // try {
+        //     console.log('Đăng ký với: ', username, password);
+
+        //     if (username && password) {
                 
-                console.log("Đăng ký thành công!");
-                navigate('/home'); 
-            } else {
-                setError('Vui lòng nhập đầy đủ thông tin!');
-            }
-        } catch (err) {
-            console.error("Lỗi đăng ký: ", err);
-            setError('Đăng ký không thành công!');
-        }
+        //         console.log("Đăng ký thành công!");
+        //         navigate('/home'); 
+        //     } else {
+        //         setError('Vui lòng nhập đầy đủ thông tin!');
+        //     }
+        // } catch (err) {
+        //     console.error("Lỗi đăng ký: ", err);
+        //     setError('Đăng ký không thành công!');
+        // }
     };
 
     return (

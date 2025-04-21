@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './style/ForgetPassword.css';
+import AuthAPI from '../../api/auth';
 
 const ForgetPassword = () => {
   const [username, setUsername] = useState('');
@@ -13,25 +14,33 @@ const ForgetPassword = () => {
     e.preventDefault();
     setError('');
 
-    try {
-      if (!username) {
-        setError('Vui lòng nhập tên đăng nhập!');
-        return;
-      }
-      if (!newPassword) {
-        setError('Vui lòng nhập mật khẩu mới!');
-        return;
-      }
-      if (newPassword !== reEnterPassword) {
-        setError('Mật khẩu nhập lại không khớp!');
-        return;
-      }
-
-      navigate('/sign-in');
-    } catch (err) {
-      console.error('Lỗi đổi mật khẩu:', err);
-      setError('Đổi mật khẩu không thành công!');
+    if (!username) {
+      setError('Vui lòng nhập tên đăng nhập!');
+      return;
     }
+    if (!newPassword) {
+      setError('Vui lòng nhập mật khẩu mới!');
+      return;
+    }
+    if (newPassword !== reEnterPassword) {
+      setError('Mật khẩu nhập lại không khớp!');
+      return;
+    }
+
+    AuthAPI.handleResetPassword(username, newPassword)
+      .then(res => {
+          console.log("res.status: " + res.status)
+          console.log("res.message: " + res.message);
+          if (res.status === "success") {
+              navigate('/sign-in');
+          } else {
+              setError(res.message);
+          }
+      })
+      .catch (() => {
+        console.error('Lỗi đổi mật khẩu');
+        setError('Đổi mật khẩu không thành công!');
+      })
   };
 
   return (

@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import './style/Home.css';
+import { useUserContext } from '../../context/UserContext';
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('mcq'); 
   const [dropdownOpen, setDropdownOpen] = useState(false); 
   const navigate = useNavigate();
-
+  const userCtx = useUserContext()
   
-  const username = 'testuser';
-  const mcqQuizzes = ['Quiz Toán 1', 'Quiz Khoa học'];
-  const flashcardQuizzes = ['Flashcard Tiếng Anh', 'Flashcard Lịch sử'];
+  const mcqQuizzes = ['Quiz Toán 1', 'Quiz Khoa học', "Quiz Toán 2", "Quiz Toán 3"];
+  const flashcardQuizzes = ['Flashcard Tiếng Anh', 'Flashcard Lịch sử', 'Flashcard Lịch sử', 'Flashcard Lịch sử','Flashcard Lịch sử', 'Flashcard Lịch sử', 'Flashcard Lịch sử'];
 
   const handleLogout = () => {
     console.log('Đăng xuất thành công!');
@@ -21,7 +21,7 @@ const Home = () => {
     <div className="home-container">
       <div className="home-card">
         <header className="home-header">
-          <h2 className="home-welcome">Chào mừng, {username}</h2>
+          <h2 className="home-welcome">Chào mừng, {userCtx.username}</h2>
           <div className="home-actions">
             <div className="create-quiz-dropdown">
               <button

@@ -1,12 +1,15 @@
 import React from 'react';
 import AppRoutes from './routes';
-import SignIn from './features/Auth/SignIn';
+import SignIn from './pages/auth/SignIn';
+import UserContextProvider, { UserContext } from './context/UserContext';
 
 const App = () => {
   return (
-    <div className="App">
-      <AppRoutes />
-    </div>
+    <UserContextProvider>
+      <div className="App">
+        <AppRoutes />
+      </div>
+    </UserContextProvider>
   );
 };
 
