@@ -83,7 +83,11 @@ const Home = () => {
             ) : (
               flashcardQuizzes.length > 0 ? (
                 flashcardQuizzes.map((quiz, index) => (
-                  <div key={index} className="quiz-card">
+                  <div
+                    key={index}
+                    className="quiz-card"
+                    onClick={() => navigate(`/do-flashcard/${quiz.id}`)}
+                  >
                     <h3>{quiz}</h3>
                   </div>
                 ))
