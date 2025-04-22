@@ -1,5 +1,9 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { faTrash, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import pop1Image from '../../assets/poperror.jpg';
+import image2 from '../../assets/image2.jpg';
 import './style/CreateFlashcard.css';
 
 const CreateFlashcard = () => {
@@ -44,7 +48,7 @@ const CreateFlashcard = () => {
     setError('');
     setSuccess('');
 
-    
+
     if (!flashcardSet.title.trim()) {
       setError('Vui lòng nhập tiêu đề flashcard.');
       return;
@@ -56,7 +60,7 @@ const CreateFlashcard = () => {
       }
     }
 
-    
+
     const flashcardData = {
       id: generateId(),
       title: flashcardSet.title,
@@ -65,18 +69,22 @@ const CreateFlashcard = () => {
     };
     console.log('Flashcard Created:', flashcardData);
 
-   
+
     const quizzes = JSON.parse(localStorage.getItem('quizzes') || '[]');
     quizzes.push(flashcardData);
     localStorage.setItem('quizzes', JSON.stringify(quizzes));
 
     setSuccess('Flashcard đã được tạo thành công!');
-    setTimeout(() => navigate(`/do-flashcard/${flashcardData.id}`), 2000);
+    setTimeout(() => navigate(`/flashcards/${flashcardData.id}`), 2000);
   };
 
   const handleLogout = () => {
-    localStorage.removeItem('token'); 
+    localStorage.removeItem('token');
     navigate('/sign-in');
+  };
+
+  const closeErrorPopup = () => {
+    setError('');
   };
 
   return (
@@ -117,13 +125,40 @@ const CreateFlashcard = () => {
               onClick={handleLogout}
               aria-label="Đăng xuất"
             >
-              🚪
+              <FontAwesomeIcon icon={faRightFromBracket} className="logout-icon" />
             </button>
           </div>
         </header>
         <div className="create-flashcard-content">
-          {error && <div className="error-message">{error}</div>}
-          {success && <div className="success-message">{success}</div>}
+          {error && (<div className="error-popup-overlay">
+            <div className="error-popup">
+              <p className="error-popup-message">{error}</p>
+              <img
+                src={pop1Image}
+                alt="Hình ảnh lỗi"
+                className="error-popup-image"
+              />
+              <button
+                className="error-popup-close-button"
+                onClick={closeErrorPopup}
+                aria-label="Đóng thông báo lỗi"
+              >
+                Đóng
+              </button>
+            </div>
+          </div>
+          )}
+          {success &&
+            <div className="success-popup-overlay">
+              <div className="success-popup">
+                <p className="success-popup-message">{success}</p>
+                <img
+                  src={image2}
+                  alt="Hình ảnh thành công"
+                  className="success-popup-image"
+                />
+              </div>
+            </div>}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Tiêu đề Flashcard</label>
@@ -143,7 +178,9 @@ const CreateFlashcard = () => {
                       type="button"
                       className="remove-flashcard-button"
                       onClick={() => handleRemoveFlashcard(index)}
-                    >🗑️
+                      aria-label="Xóa câu hỏi"
+                    >
+                      <FontAwesomeIcon icon={faTrash} className="trash-icon" />
                     </button>
                   )}
                 </div>

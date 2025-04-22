@@ -149,3 +149,72 @@ body {
   .submit-button:hover {
     background-color: #0056b3;
   }
+
+  .success-message {
+    color: #15803d;
+    background-color: #dcfce7;
+    padding: 12px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+    text-align: center;
+  }
+  
+  .success-popup-overlay, .error-popup-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+  }
+  
+  .success-popup, .error-popup {
+    background-color: #ffffff; 
+    width: 400px;
+    padding: 24px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+  }
+  
+  .error-popup-message {
+    color: #dc2626; 
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .success-popup-message {
+    color: #15803d; 
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+  }
+  
+  .success-popup-image, .error-popup-image {
+    max-width: 200px; 
+    height: auto;
+    border-radius: 4px;
+  }
+  
+  .error-popup-close-button {
+    background-color: #dc2626;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .error-popup-close-button:hover {
+    background-color: #b91c1c;
+  }

@@ -1,17 +1,23 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React, { useEffect } from 'react';
 import SignIn from '../pages/auth/SignIn';
 import SignUp from '../pages/auth/SignUp';
 import ForgetPassword from '../pages/auth/ForgetPassword';
 import Home from '../pages/home/Home';
-import CreateMCQ from '../pages/Quiz/CreateMCQ';
-import CreateFlashcard from '../pages/Quiz/CreateFlashcard';
-import DoMCQ from '../pages/Quiz/DoMCQ';
-import DoFlashcard from '../pages/Quiz/DoFlashcard';
+import CreateMCQ from '../pages/quiz/CreateMCQ';
+import CreateFlashcard from '../pages/quiz/CreateFlashcard';
+import DoMCQ from '../pages/quiz/DoMCQ';
+import DoFlashcard from '../pages/quiz/DoFlashcard';
+import setupMockData from '../utils/setupMockData';
 
 const AppRoutes = () => {
+  useEffect(() => {
+    setupMockData();
+  }, []);
   return (
     <Router>
       <Routes>
+        <Route path="/" element={<Navigate to="/sign-in" replace />} />
         <Route path="/sign-in" element={<SignIn />} />
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/sign-up" element={<SignUp />} />

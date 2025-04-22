@@ -1,4 +1,4 @@
-.home-card h2 {
+/* .home-card h2 {
     font-size: 24px;
     color: #1f2937;
     margin-bottom: 24px;
@@ -24,6 +24,10 @@
   }
   
   .options-group {
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
+    padding: 16px;
+    background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
     gap: 12px;
@@ -39,11 +43,11 @@
   }
   
   .option-item.correct {
-    border: 2px solid #00cc00;
+    border: 1px solid #00cc00;
   }
   
   .option-item.incorrect {
-    border: 2px solid #ff3333;
+    border: 1px solid #ff3333;
   }
   
   .option-item span {
@@ -131,4 +135,157 @@
     color: #6b7280;
     cursor: not-allowed;
   }
+   */
+
+   .home-container {
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+    background-color: #f0f2f5; /* Đồng bộ với Home.css */
+    padding: 0 5%; /* Đồng bộ với Home.css */
+  }
   
+  .home-card {
+    width: 100%;
+    max-width: 1200px; /* Đồng bộ với Home.css */
+    background-color: #ffffff;
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Đồng bộ với Home.css */
+    padding: 24px;
+  }
+  
+  .quiz-title {
+    font-size: 24px;
+    color: #1f2937;
+    margin: 0 0 24px;
+    text-align: center;
+  }
+  
+  .mcq-block {
+    margin-bottom: 24px;
+  }
+  
+  .question-label {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 8px;
+  }
+  
+  .question-text {
+    font-size: 20px;
+    color: #1f2937;
+    margin: 0 0 24px;
+    line-height: 1.5;
+  }
+  
+  .options-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  
+  .options-label {
+    font-size: 16px;
+    color: #6b7280;
+    margin-bottom: 8px;
+  }
+  
+  .option-item {
+    background-color: white;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 12px 16px;
+    color: #1f2937;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .option-item:hover {
+    background-color: #f0f2f5; /* Hover giống dropdown-item */
+  }
+  
+  .option-item.correct {
+    background-color: #34C759;
+    border-color: #34C759;
+    color: white;
+  }
+  
+  .option-item.incorrect {
+    background-color: #FF3B30;
+    border-color: #FF3B30;
+    color: white;
+  }
+  
+  .navigation-controls {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 20px;
+  }
+  
+  .nav-button {
+    background-color: white;
+    border: 1px solid #d1d5db; /* Đồng bộ với quiz-action-button */
+    border-radius: 4px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .nav-button:hover:not(:disabled) {
+    background-color: #007bff; /* Hover xanh giống edit-button */
+    color: white;
+  }
+  
+  .nav-button:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+  
+  .nav-button svg {
+    font-size: 16px;
+    color: #1f2937;
+  }
+  
+  .nav-button:hover:not(:disabled) svg {
+    color: white;
+  }
+  
+  .form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    margin-top: 24px;
+  }
+  
+  .cancel-button,
+  .finish-button {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .cancel-button {
+    background-color: #6b7280;
+    color: white;
+  }
+  
+  .cancel-button:hover {
+    background-color: #4b5563;
+  }
+  
+  .finish-button {
+    background-color: #007bff;
+    color: white;
+  }
+  
+  .finish-button:hover {
+    background-color: #0056b3;
+  }
