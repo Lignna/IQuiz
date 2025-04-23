@@ -1,155 +1,18 @@
-/* .home-card h2 {
-    font-size: 24px;
-    color: #1f2937;
-    margin-bottom: 24px;
-    text-align: center;
-  }
-  
-  .mcq-block {
-    margin-bottom: 24px;
-  }
-  
-  .mcq-block h3 {
-    font-size: 18px;
-    color: #1f2937;
-    margin-bottom: 12px;
-    text-align: center;
-  }
-  
-  .question-text {
-    font-size: 16px;
-    color: #1f2937;
-    margin-bottom: 16px;
-    text-align: center;
-  }
-  
-  .options-group {
-    border: 1px solid #e5e7eb;
-    border-radius: 8px;
-    padding: 16px;
-    background-color: #f8f9fa;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 16px;
-  }
-  
-  .option-item {
-    padding: 12px;
-    border-radius: 6px;
-    background-color: #ffffff;
-    cursor: pointer;
-    transition: border-color 0.3s ease;
-  }
-  
-  .option-item.correct {
-    border: 1px solid #00cc00;
-  }
-  
-  .option-item.incorrect {
-    border: 1px solid #ff3333;
-  }
-  
-  .option-item span {
-    font-size: 16px;
-    color: #1f2937;
-  }
-  
-  .navigation-controls {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    margin-top: 16px;
-  }
-  
-  .nav-button {
-    width: 40px;
-    height: 40px;
-    border: 1px solid #d1d5db;
-    border-radius: 50%;
-    background-color: #ffffff;
-    color: #1f2937;
-    font-size: 18px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: background-color 0.3s ease;
-  }
-  
-  .nav-button:disabled {
-    background-color: #e5e7eb;
-    color: #6b7280;
-    cursor: not-allowed;
-  }
-  
-  .nav-button:not(:disabled):hover {
-    background-color: #f0f2f5;
-  }
-  
-  .nav-counter {
-    font-size: 16px;
-    color: #1f2937;
-  }
-  
-  .form-actions {
-    display: flex;
-    justify-content: flex-end;
-    gap: 16px;
-  }
-  
-  .cancel-button,
-  .next-button,
-  .finish-button {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .cancel-button {
-    background-color: #6b7280;
-    color: white;
-  }
-  
-  .cancel-button:hover {
-    background-color: #4b5563;
-  }
-  
-  .next-button,
-  .finish-button {
-    background-color: #007bff;
-    color: white;
-  }
-  
-  .next-button:hover,
-  .finish-button:hover {
-    background-color: #0056b3;
-  }
-  
-  .next-button:disabled {
-    background-color: #e5e7eb;
-    color: #6b7280;
-    cursor: not-allowed;
-  }
-   */
+
 
    .home-container {
     display: flex;
     justify-content: center;
     min-height: 100vh;
-    background-color: #f0f2f5; /* Đồng bộ với Home.css */
-    padding: 0 5%; /* Đồng bộ với Home.css */
+    background-color: #f0f2f5; 
+    padding: 0 5%; 
   }
   
   .home-card {
     width: 100%;
-    max-width: 1200px; /* Đồng bộ với Home.css */
+    max-width: 1200px;
     background-color: #ffffff;
-    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1); /* Đồng bộ với Home.css */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
     padding: 24px;
   }
   
@@ -189,7 +52,7 @@
     margin-bottom: 8px;
   }
   
-  .option-item {
+  .option-item-do {
     background-color: white;
     border: 1px solid #d1d5db;
     border-radius: 8px;
@@ -200,17 +63,17 @@
     transition: background-color 0.3s ease;
   }
   
-  .option-item:hover {
-    background-color: #f0f2f5; /* Hover giống dropdown-item */
+  .option-item-do:hover {
+    background-color: #f0f2f5; 
   }
   
-  .option-item.correct {
+  .option-item-do.correct {
     background-color: #34C759;
     border-color: #34C759;
     color: white;
   }
   
-  .option-item.incorrect {
+  .option-item-do.incorrect {
     background-color: #FF3B30;
     border-color: #FF3B30;
     color: white;
@@ -220,12 +83,12 @@
     display: flex;
     justify-content: center;
     gap: 16px;
-    margin-top: 20px;
+    margin-top: 50px;
   }
   
   .nav-button {
     background-color: white;
-    border: 1px solid #d1d5db; /* Đồng bộ với quiz-action-button */
+    border: 1px solid #d1d5db;
     border-radius: 4px;
     width: 40px;
     height: 40px;
@@ -237,7 +100,7 @@
   }
   
   .nav-button:hover:not(:disabled) {
-    background-color: #007bff; /* Hover xanh giống edit-button */
+    background-color: #007bff; 
     color: white;
   }
   

@@ -3,8 +3,6 @@ import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
-import pop1Image from '../../assets/poperror.jpg'; 
-import image2 from '../../assets/image2.jpg';
 import './style/CreateMCQ.css';
 
 const CreateMCQ = () => {
@@ -70,7 +68,7 @@ const CreateMCQ = () => {
       newQuestions[questionIndex].correctAnswer > optionIndex &&
       newQuestions[questionIndex].correctAnswer !== null
     ) {
-   
+
       newQuestions[questionIndex].correctAnswer -= 1;
     }
 
@@ -174,40 +172,26 @@ const CreateMCQ = () => {
               onClick={handleLogout}
               aria-label="Đăng xuất"
             >
-              <FontAwesomeIcon icon={faRightFromBracket }className="logout-icon" />
+              <FontAwesomeIcon icon={faRightFromBracket} className="logout-icon" />
             </button>
           </div>
         </header>
         <div className="create-mcq-content">
-         {success && <div className="success-popup-overlay">
-              <div className="success-popup">
-                <p className="success-popup-message">{success}</p>
-                <img
-                  src={image2}
-                  alt="Hình ảnh thành công"
-                  className="success-popup-image"
-                />
-              </div>
-            </div>} 
-          {error && (
-            <div className="error-popup-overlay">
-              <div className="error-popup">
-                <p className="error-popup-message">{error}</p>
-                <img
-                  src={pop1Image}
-                  alt="Hình ảnh lỗi"
-                  className="error-popup-image"
-                />
-                <button
-                  className="error-popup-close-button"
-                  onClick={closeErrorPopup}
-                  aria-label="Đóng thông báo lỗi"
-                >
-                  Đóng
-                </button>
-              </div>
+          {success && <div className="success-popup-overlay">
+            <div className="success-popup">
+              <p className="success-popup-message">{success}</p>
             </div>
-          )}
+          </div>}
+          {error && <div className="error-popup-overlay">
+            <div className="error-popup">
+            <p className="error-popup-message">{error}</p>
+            <button
+              className="error-popup-close-button"
+              onClick={closeErrorPopup}
+              aria-label="Đóng thông báo lỗi"
+            >
+              Đóng
+            </button></div></div>}
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label>Tiêu đề Quiz</label>
@@ -325,5 +309,4 @@ const CreateMCQ = () => {
 export default CreateMCQ;
 
 
-              
-           
+

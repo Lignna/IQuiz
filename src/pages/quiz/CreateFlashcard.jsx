@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { faTrash, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import pop1Image from '../../assets/poperror.jpg';
-import image2 from '../../assets/image2.jpg';
 import './style/CreateFlashcard.css';
 
 const CreateFlashcard = () => {
@@ -133,11 +131,6 @@ const CreateFlashcard = () => {
           {error && (<div className="error-popup-overlay">
             <div className="error-popup">
               <p className="error-popup-message">{error}</p>
-              <img
-                src={pop1Image}
-                alt="Hình ảnh lỗi"
-                className="error-popup-image"
-              />
               <button
                 className="error-popup-close-button"
                 onClick={closeErrorPopup}
@@ -152,11 +145,6 @@ const CreateFlashcard = () => {
             <div className="success-popup-overlay">
               <div className="success-popup">
                 <p className="success-popup-message">{success}</p>
-                <img
-                  src={image2}
-                  alt="Hình ảnh thành công"
-                  className="success-popup-image"
-                />
               </div>
             </div>}
           <form onSubmit={handleSubmit}>

@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPencil,faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import './style/Home.css';
 import { useUserContext } from '../../context/UserContext';
-import image5 from '../../assets/image5.jpg';
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('mcq');
@@ -140,11 +139,6 @@ const Home = () => {
               ) : (
                 <div className="no-quiz-container">
                   <p>Chưa có quiz MCQ nào!</p>
-                  <img
-                    src={image5}
-                    alt="Không có quiz MCQ"
-                    className="no-quiz-image"
-                  />
                 </div>
               )
             ) : (
@@ -180,11 +174,6 @@ const Home = () => {
               ) : (
                 <div className="no-quiz-container">
                 <p>Chưa có flashcard nào!</p>
-                <img
-                  src={image5}
-                  alt="Không có flashcard"
-                  className="no-quiz-image"
-                />
               </div>
               )
             )}

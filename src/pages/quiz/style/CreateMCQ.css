@@ -34,9 +34,6 @@
   flex-direction: column;
   align-items: center;
   gap: 16px;
-}
-
-.error-popup-message {
   color: #dc2626; 
   font-size: 16px;
   font-weight: 600;

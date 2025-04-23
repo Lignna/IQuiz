@@ -1,5 +1,5 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import React, { useEffect } from 'react';
+import React from 'react';
 import SignIn from '../pages/auth/SignIn';
 import SignUp from '../pages/auth/SignUp';
 import ForgetPassword from '../pages/auth/ForgetPassword';
@@ -8,12 +8,7 @@ import CreateMCQ from '../pages/quiz/CreateMCQ';
 import CreateFlashcard from '../pages/quiz/CreateFlashcard';
 import DoMCQ from '../pages/quiz/DoMCQ';
 import DoFlashcard from '../pages/quiz/DoFlashcard';
-import setupMockData from '../utils/setupMockData';
-
 const AppRoutes = () => {
-  useEffect(() => {
-    setupMockData();
-  }, []);
   return (
     <Router>
       <Routes>
