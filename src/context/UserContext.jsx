@@ -1,21 +1,26 @@
-import React, { createContext, useContext, useState } from "react";
+import React, { createContext, ReactNode, useContext, useState } from "react";
 
 export const UserContext = createContext({
-   username: ""
+	username: "",
+	init: () => {},
+	clear: () => {},
 });
 
 const UserContextProvider = ({ children }) => {
-   const [username, setUsername] = useState("");
+	const [username, setUsername] = useState("");
 
-	async function init(
-      username
-	) {
-      setUsername(username)
+	async function init(username) {
+		console.log("username: " + username)
+		setUsername(username);
 	}
 
+	function clear() {
+		setUsername("");
+	}
 	const value = {
-      username,
-      init
+		username,
+		init,
+		clear,
 	};
 
 	return <UserContext.Provider value={value}>{children}</UserContext.Provider>;

@@ -4,6 +4,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import './style/CreateMCQ.css';
+import LogoutBtn from '../../components/LogoutBtn';
+import HeaderActions from '../../components/HeaderActions';
 
 const CreateMCQ = () => {
   const navigate = useNavigate();
@@ -139,42 +141,7 @@ const CreateMCQ = () => {
       <div className="home-card">
         <header className="home-header">
           <h2 className="home-welcome">Tạo Câu Hỏi Nhiều Lựa Chọn</h2>
-          <div className="home-actions">
-            <div className="create-quiz-dropdown">
-              <button
-                className="create-quiz-button"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-                aria-label="Tạo quiz mới"
-              >
-                +
-              </button>
-              {dropdownOpen && (
-                <div className="dropdown-menu">
-                  <Link
-                    to="/create-mcq"
-                    className="dropdown-item"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Tạo MCQ
-                  </Link>
-                  <Link
-                    to="/create-flashcard"
-                    className="dropdown-item"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Tạo Flashcard
-                  </Link>
-                </div>
-              )}
-            </div>
-            <button
-              className="logout-button"
-              onClick={handleLogout}
-              aria-label="Đăng xuất"
-            >
-              <FontAwesomeIcon icon={faRightFromBracket} className="logout-icon" />
-            </button>
-          </div>
+          <HeaderActions />
         </header>
         <div className="create-mcq-content">
           {success && <div className="success-popup-overlay">

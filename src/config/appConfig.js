@@ -5,6 +5,7 @@ export let appConfig = {
 		headers: {
 			"Accept": "application/json",
 		},
+		withCredentials: true,
 		timeout: 15000
 	}
 };

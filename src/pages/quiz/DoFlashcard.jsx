@@ -1,34 +1,38 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import './style/DoFlashcard.css';
+import FlashcardAPI from '../../api/flashcard';
 
 const DoFlashcard = () => {
-  const { quizId } = useParams();
-  const navigate = useNavigate();
-  const [flashcardSet, setFlashcardSet] = useState(null);
-  const [currentCard, setCurrentCard] = useState(0);
-  const [isFlipped, setIsFlipped] = useState(false);
+  const { uuid } = useParams();
+   const navigate = useNavigate();
+  const [title, setTitle] = useState("");
+  const [questions, setQuestions] = useState(null);
+   const [currentQuestion, setCurrentQuestion] = useState(null);
+  const [currentCardIndex, setCurrentCardIndex] = useState(0);
+ 	 const [isFlipped, setIsFlipped] = useState(false);
 
   useEffect(() => {
-    const quizzes = JSON.parse(localStorage.getItem('quizzes') || '[]');
-    const foundSet = quizzes.find((q) => q.id === quizId);
-    if (foundSet) {
-      setFlashcardSet(foundSet);
-    } else {
-      navigate('/home'); 
-    }
-  }, [quizId, navigate]);
+	FlashcardAPI.getQuiz(uuid)
+		.then(res => {
+			setTitle(res.data.title);
+			setQuestions(res.data.questions)
+			setCurrentQuestion(res.data.questions[0])
+		})
+	}, []);
 
   const handlePrevious = () => {
-    if (currentCard > 0) {
-      setCurrentCard(currentCard - 1);
+    if (currentCardIndex > 0) {
+      setCurrentCardIndex((prevValue) => prevValue - 1);
+		setCurrentQuestion(questions[currentCardIndex - 1])
       setIsFlipped(false);
     }
   };
 
   const handleNext = () => {
-    if (currentCard < flashcardSet.flashcards.length - 1) {
-      setCurrentCard(currentCard + 1);
+    if (currentCardIndex < questions.length - 1) {
+      setCurrentCardIndex((prevValue) => prevValue + 1);
+		setCurrentQuestion(questions[currentCardIndex + 1])
       setIsFlipped(false);
     }
   };
@@ -42,39 +46,37 @@ const DoFlashcard = () => {
     setIsFlipped(!isFlipped);
   };
 
-  if (!flashcardSet) return <div>Loading...</div>;
-
-  const card = flashcardSet.flashcards[currentCard];
+  if (!title) return <div>Loading...</div>;
 
   return (
     <div className="home-container">
       <div className="home-card">
-        <h2>{flashcardSet.title}</h2>
+        <h2>{title}</h2>
         <div className="flashcard-block">
-          <h3>Flashcard {currentCard + 1}/{flashcardSet.flashcards.length}</h3>
+          <h3>Flashcard {currentCardIndex + 1}/{questions?.length}</h3>
           <div
             className={`flashcard-content ${isFlipped ? 'flipped' : ''}`}
             onClick={handleFlip}
           >
-            <div className="front">{card.front}</div>
-            <div className="back">{card.back}</div>
+            <div className="front">{currentQuestion.front}</div>
+            <div className="back">{currentQuestion.back}</div>
           </div>
           <div className="navigation-controls">
             <button
               className="nav-button"
               onClick={handlePrevious}
-              disabled={currentCard === 0}
+              disabled={currentCardIndex === 0}
               aria-label="Flashcard trước"
             >
               ←
             </button>
             <span className="nav-counter">
-              {currentCard + 1} / {flashcardSet.flashcards.length}
+              {currentCardIndex + 1} / {questions?.length}
             </span>
             <button
               className="nav-button"
               onClick={handleNext}
-              disabled={currentCard === flashcardSet.flashcards.length - 1}
+              disabled={currentCardIndex === questions?.length - 1}
               aria-label="Flashcard tiếp theo"
             >
               →

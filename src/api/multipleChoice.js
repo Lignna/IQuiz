@@ -2,12 +2,12 @@ import { appConfig } from "../config/appConfig";
 import axios from "axios";
 import AuthUtils from "../utils/authUtil";
 
-const REL_URL = `${appConfig.SERVER_URL}/flashcards`;
+const REL_URL = `${appConfig.SERVER_URL}/multiple-choices`;
 
-export default class FlashcardAPI {
+export default class MultipleChocieAPI {
 	static async getQuiz(uuid) {
 		try {
-		 var response = await axios.get(`${REL_URL}/${uuid}`, AuthUtils.initHeaders("application/json"));
+			var response = await axios.get(`${REL_URL}/${uuid}`, AuthUtils.initHeaders("application/json"));
 			return response.data;
 		} catch (error) {
 		}

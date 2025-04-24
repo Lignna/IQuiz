@@ -1,187 +1,173 @@
 
 import React, { useState, useEffect } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faPencil,faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPencil } from '@fortawesome/free-solid-svg-icons';
 import './style/Home.css';
 import { useUserContext } from '../../context/UserContext';
+import WebAPI from '../../api/web';
+import Cookies
+ from 'js-cookie';
+import HeaderActions from '../../components/HeaderActions';
+import FlashcardAPI from '../../api/flashcard';
 
 const Home = () => {
-  const [activeTab, setActiveTab] = useState('mcq');
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [quizzes, setQuizzes] = useState([]); 
-  const navigate = useNavigate();
-  const userCtx = useUserContext();
+	const [activeTab, setActiveTab] = useState('mcq');
+	const [quizzes, setQuizzes] = useState([]);
+	const [multipleChoices, setMultipleChoices] = useState(null);
+	const [flashcards, setFlashcards] = useState(null);
+	const userCtx = useUserContext();
+	const navigate = useNavigate();
 
-  useEffect(() => {
-    const storedQuizzes = JSON.parse(localStorage.getItem('quizzes') || '[]');
-    setQuizzes(storedQuizzes);
-  }, []);
+	useEffect(() => {
+		const storedQuizzes = JSON.parse(localStorage.getItem('quizzes') || '[]');
+		setQuizzes(storedQuizzes);
+	}, []);
 
-  const mcqQuizzes = quizzes.filter(quiz => quiz.type === 'mcq');
-  const flashcardQuizzes = quizzes.filter(quiz => quiz.type === 'flashcard');
+	const handleDeleteQuiz = (uuid) => {
+		if (activeTab === 'mcq') {
+			setMultipleChoices((quizzes) => quizzes.filter(quiz => quiz.uuid !== uuid))
+		} else {
+			FlashcardAPI.deleteQuiz(uuid)
+				.then(res => {
+					setFlashcards((quizzes) => quizzes.filter(quiz => quiz.uuid !== uuid))
+				})
+		}
+	};
 
-  const handleDeleteQuiz = (quizId) => {
-    const updatedQuizzes = quizzes.filter(quiz => quiz.id !== quizId);
-    setQuizzes(updatedQuizzes);
-    localStorage.setItem('quizzes', JSON.stringify(updatedQuizzes));
-  };
+	const handleEditQuiz = (uuid) => {
+		if (activeTab === 'mcq') {
+			navigate(`/create-mcq/${uuid}`);
+		} else {
+			navigate(`/create-flashcard/${uuid}`);
+		}
+	};
 
-  const handleEditQuiz = (quiz) => {
-    if (quiz.type === 'mcq') {
-      navigate('/create-mcq', { state: { quiz } });
-    } else {
-      navigate('/create-flashcard', { state: { quiz } });
-    }
-  };
+	const handleQuizClick = (quiz) => {
+		if (activeTab === 'mcq') {
+			navigate(`/mcqs/${quiz.uuid}`);
+		} else {
+			navigate(`/flashcards/${quiz.uuid}`);
+		}
+	};
 
-  const handleQuizClick = (quiz) => {
-    if (quiz.type === 'mcq') {
-      navigate(`/mcqs/${quiz.id}`);
-    } else {
-      navigate(`/flashcards/${quiz.id}`);
-    }
-  };
+	useEffect(() => {
+		const username = Cookies.get("username");
 
-  const handleLogout = () => {
-    console.log('Đăng xuất thành công!');
-    navigate('/sign-in');
-  };
+		if (!username) {
+			navigate("/sign-in");
+			return;
+		}
 
-  return (
-    <div className="home-container">
-      <div className="home-card">
-        <header className="home-header">
-          <h2 className="home-welcome">Chào mừng, {userCtx.username}</h2>
-          <div className="home-actions">
-            <div className="create-quiz-dropdown">
-              <button
-                className="create-quiz-button"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                +
-              </button>
-              {dropdownOpen && (
-                <div className="dropdown-menu">
-                  <Link
-                    to="/create-mcq"
-                    className="dropdown-item"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Tạo MCQ
-                  </Link>
-                  <Link
-                    to="/create-flashcard"
-                    className="dropdown-item"
-                    onClick={() => setDropdownOpen(false)}
-                  >
-                    Tạo Flashcard
-                  </Link>
-                </div>
-              )}
-            </div>
-            <button
-                          className="logout-button"
-                          onClick={handleLogout}
-                          aria-label="Đăng xuất"
-                        >
-                          <FontAwesomeIcon icon={faRightFromBracket }className="logout-icon" />
-                        </button>
-          </div>
-        </header>
-        <div className="home-content">
-          <div className="tabs">
-            <button
-              className={`tab ${activeTab === 'mcq' ? 'active' : ''}`}
-              onClick={() => setActiveTab('mcq')}
-            >
-              MCQ
-            </button>
-            <button
-              className={`tab ${activeTab === 'flashcard' ? 'active' : ''}`}
-              onClick={() => setActiveTab('flashcard')}
-            >
-              Flashcard
-            </button>
-          </div>
-          <div className="quiz-list">
-            {activeTab === 'mcq' ? (
-              mcqQuizzes.length > 0 ? (
-                mcqQuizzes.map((quiz) => (
-                  <div key={quiz.id}
-                  className="quiz-card"
-                  onClick={() => handleQuizClick(quiz)} >
-                    <h3>{quiz.title}</h3>
-                    <div className="quiz-actions">
-                      <button
-                        className="quiz-action-button edit-button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleEditQuiz(quiz);
-                        }}
-                        aria-label="Chỉnh sửa quiz"
-                      >
-                        <FontAwesomeIcon icon={faPencil} />
-                      </button>
-                      <button
-                        className="quiz-action-button delete-button"
-                        onClick={(e) => {
-                          e.stopPropagation(); 
-                          handleDeleteQuiz(quiz.id);
-                        }}
-                        aria-label="Xóa quiz"
-                      >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </button>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="no-quiz-container">
-                  <p>Chưa có quiz MCQ nào!</p>
-                </div>
-              )
-            ) : (
-              flashcardQuizzes.length > 0 ? (
-                flashcardQuizzes.map((quiz) => (
-                  <div key={quiz.id}
-                  className="quiz-card"
-                  onClick={() => handleQuizClick(quiz)}>
-                    <h3>{quiz.title}</h3>
-                    <div className="quiz-actions">
-                      <button
-                        className="quiz-action-button edit-button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleEditQuiz(quiz)}}
-                        aria-label="Chỉnh sửa flashcard"
-                      >
-                        <FontAwesomeIcon icon={faPencil} />
-                      </button>
-                      <button
-                        className="quiz-action-button delete-button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleDeleteQuiz(quiz.id);
-                        }}
-                        aria-label="Xóa flashcard"
-                      >
-                        <FontAwesomeIcon icon={faTrash} />
-                      </button>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="no-quiz-container">
-                <p>Chưa có flashcard nào!</p>
-              </div>
-              )
-            )}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+		WebAPI.getHomeData().then((res) => {
+			userCtx.init(res.user.username);
+			setMultipleChoices(res.multipleChoices);
+			setFlashcards(res.flashcards);
+		});
+	}, []);
+
+
+
+	return (
+		<div className="home-container">
+		<div className="home-card">
+			<header className="home-header">
+				<h2 className="home-welcome">Chào mừng, {userCtx.username}</h2>
+				<HeaderActions />
+			</header>
+			<div className="home-content">
+				<div className="tabs">
+				<button
+					className={`tab ${activeTab === 'mcq' ? 'active' : ''}`}
+					onClick={() => setActiveTab('mcq')}
+				>
+					MCQ
+				</button>
+				<button
+					className={`tab ${activeTab === 'flashcard' ? 'active' : ''}`}
+					onClick={() => setActiveTab('flashcard')}
+				>
+					Flashcard
+				</button>
+				</div>
+				<div className="quiz-list">
+				{activeTab === 'mcq' ? (
+					multipleChoices?.length ?? 0 > 0 ? (
+						multipleChoices.map((quiz) => (
+						<div key={quiz.id}
+						className="quiz-card"
+						onClick={() => handleQuizClick(quiz)} >
+							<h3>{quiz.title}</h3>
+							<div className="quiz-actions">
+								<button
+								className="quiz-action-button edit-button"
+								onClick={(e) => {
+									e.stopPropagation();
+									handleEditQuiz(quiz.uuid);
+								}}
+								aria-label="Chỉnh sửa quiz"
+								>
+								<FontAwesomeIcon icon={faPencil} />
+								</button>
+								<button
+								className="quiz-action-button delete-button"
+								onClick={(e) => {
+									e.stopPropagation();
+									handleDeleteQuiz(quiz.uuid);
+								}}
+								aria-label="Xóa quiz"
+								>
+								<FontAwesomeIcon icon={faTrash} />
+								</button>
+							</div>
+						</div>
+						))
+					) : (
+						<div className="no-quiz-container">
+						<p>Chưa có quiz MCQ nào!</p>
+						</div>
+					)
+				) : (
+					flashcards?.length ?? 0 > 0 ? (
+						flashcards.map((quiz) => (
+						<div key={quiz.id}
+						className="quiz-card"
+						onClick={() => handleQuizClick(quiz)}>
+							<h3>{quiz.title}</h3>
+							<div className="quiz-actions">
+								<button
+								className="quiz-action-button edit-button"
+								onClick={(e) => {
+									e.stopPropagation();
+									handleEditQuiz(quiz.uuid)}}
+								aria-label="Chỉnh sửa flashcard"
+								>
+								<FontAwesomeIcon icon={faPencil} />
+								</button>
+								<button
+								className="quiz-action-button delete-button"
+								onClick={(e) => {
+									e.stopPropagation();
+									handleDeleteQuiz(quiz.uuid);
+								}}
+								aria-label="Xóa flashcard"
+								>
+								<FontAwesomeIcon icon={faTrash} />
+								</button>
+							</div>
+						</div>
+						))
+					) : (
+						<div className="no-quiz-container">
+						<p>Chưa có flashcard nào!</p>
+					</div>
+					)
+				)}
+				</div>
+			</div>
+		</div>
+		</div>
+	);
 };
 
 export default Home;
