@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { faTrash, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import './style/CreateFlashcard.css';
@@ -17,6 +17,8 @@ const CreateFlashcard = () => {
 	}])
 	const [error, setError] = useState('');
 	const [success, setSuccess] = useState('');
+	const location = useLocation();
+	const { quizCards, quizTitle } = location.state || {};
 
 	useEffect(() => {
 		console.log("uuid: " + uuid)
@@ -26,6 +28,9 @@ const CreateFlashcard = () => {
 				setTitle(res.data.title);
 				setCards(res.data.questions)
 			})
+		} else if (quizCards || quizTitle) {
+			setTitle(quizTitle)
+			setCards(quizCards)
 		}
 	}, []);
 

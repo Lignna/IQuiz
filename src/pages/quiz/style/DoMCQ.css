@@ -62,6 +62,20 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
   }
+
+  .option-item-do span {
+    font-size: 18px;
+    color: #1f2937;
+    margin: 0;
+    line-height: 1.5;
+    overflow-wrap: break-word; 
+    word-break: break-all; 
+    white-space: normal; 
+    max-width: 100%; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    text-align: center;
+  }
   
   .option-item-do:hover {
     background-color: #f0f2f5; 

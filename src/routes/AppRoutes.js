@@ -6,6 +6,7 @@ import ForgetPassword from '../pages/auth/ForgetPassword';
 import Home from '../pages/home/Home';
 import CreateMCQ from '../pages/quiz/CreateMCQ';
 import CreateFlashcard from '../pages/quiz/CreateFlashcard';
+import CreateByAI from '../pages/quiz/CreateByAI';
 import DoMCQ from '../pages/quiz/DoMCQ';
 import DoFlashcard from '../pages/quiz/DoFlashcard';
 import Cookies from "js-cookie"
@@ -35,6 +36,7 @@ const AppRoutes = () => {
 			<Route path="/create-flashcard/:uuid" element={<CreateFlashcard />} />
 			<Route path="/mcqs/:uuid" element={<DoMCQ />} />
 			<Route path="/flashcards/:uuid" element={<DoFlashcard />} />
+			<Route path="/createbyAI" element={<CreateByAI />} />
 		</Routes>
 	);
 };

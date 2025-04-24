@@ -31,6 +31,20 @@ body {
     perspective: 1000px;
     cursor: pointer;
   }
+
+  .flashcard-content p {
+    font-size: 18px;
+    color: #1f2937;
+    margin: 0;
+    line-height: 1.5;
+    overflow-wrap: break-word; 
+    word-break: break-all; 
+    white-space: normal; 
+    max-width: 100%; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    text-align: center;
+  }
   
   .flashcard-content .front,
   .flashcard-content .back {
@@ -48,6 +62,7 @@ body {
     font-size: 18px;
     color: #1f2937;
     transition: transform 0.6s;
+    overflow-y: auto;
   }
   
   .flashcard-content .front {

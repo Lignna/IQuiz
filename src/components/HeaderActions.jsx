@@ -31,6 +31,13 @@ const HeaderActions = () => {
                   >
                     Tạo Flashcard
                   </Link>
+						<Link
+                    to="/createbyAI"
+                    className="dropdown-item"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    Tạo quiz bằng AI
+                  </Link>
                 </div>
               )}
             </div>

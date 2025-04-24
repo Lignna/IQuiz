@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash } from '@fortawesome/free-solid-svg-icons';
 import { faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
@@ -9,11 +9,17 @@ import HeaderActions from '../../components/HeaderActions';
 
 const CreateMCQ = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { questions: initialQuestions, title: initialTitle } = location.state || { questions: [], title: '' };
   const [quiz, setQuiz] = useState({
-    title: '',
-    questions: [
-      { questionText: '', options: ['', '', '', ''], correctAnswer: null },
-    ],
+    // title: '',
+    // questions: [
+    //   { questionText: '', options: ['', '', '', ''], correctAnswer: null },
+    // ],
+    title: initialTitle || '',
+    questions: initialQuestions.length > 0
+      ? initialQuestions
+      : [{ questionText: '', options: ['', '', '', ''], correctAnswer: null }],
   });
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
