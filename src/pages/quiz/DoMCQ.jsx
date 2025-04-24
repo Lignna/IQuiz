@@ -91,7 +91,7 @@ const DoMCQ = () => {
                   selectedOption === index
                     ? isCorrect
                       ? 'correct'
-                      : 'incorrect'
+                      : 'incorrect' 
                     : ''
                 }`}
                 onClick={() => handleOptionChange(index)}
@@ -103,7 +103,7 @@ const DoMCQ = () => {
                   }
                 }}
               >
-                <span>{index + 1}. {option}</span>
+                <span>{option}</span>
               </div>
             ))}
           </div>

@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import './style/DoFlashcard.css';
 
 const DoFlashcard = () => {
@@ -18,6 +20,36 @@ const DoFlashcard = () => {
       navigate('/home'); 
     }
   }, [quizId, navigate]);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      switch (event.key) {
+        case ' ':
+          event.preventDefault();
+          setIsFlipped((prev) => !prev);
+          break;
+        case 'ArrowLeft':
+          if (currentCard > 0) {
+            setCurrentCard(currentCard - 1);
+            setIsFlipped(false);
+          }
+          break;
+        case 'ArrowRight':
+          if (flashcardSet && currentCard < flashcardSet.flashcards.length - 1) {
+            setCurrentCard(currentCard + 1);
+            setIsFlipped(false);
+          }
+          break;
+        default:
+          break;
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentCard, flashcardSet]);
 
   const handlePrevious = () => {
     if (currentCard > 0) {
@@ -56,8 +88,8 @@ const DoFlashcard = () => {
             className={`flashcard-content ${isFlipped ? 'flipped' : ''}`}
             onClick={handleFlip}
           >
-            <div className="front">{card.front}</div>
-            <div className="back">{card.back}</div>
+            <div className="front"><p>{card.front}</p></div>
+            <div className="back"><p>{card.back}</p></div>
           </div>
           <div className="navigation-controls">
             <button
@@ -66,18 +98,15 @@ const DoFlashcard = () => {
               disabled={currentCard === 0}
               aria-label="Flashcard trước"
             >
-              ←
+              <FontAwesomeIcon icon={faChevronLeft} />
             </button>
-            <span className="nav-counter">
-              {currentCard + 1} / {flashcardSet.flashcards.length}
-            </span>
             <button
               className="nav-button"
               onClick={handleNext}
               disabled={currentCard === flashcardSet.flashcards.length - 1}
               aria-label="Flashcard tiếp theo"
             >
-              →
+              <FontAwesomeIcon icon={faChevronRight} />
             </button>
           </div>
         </div>

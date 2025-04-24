@@ -2,14 +2,14 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash, faPencil,faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faPencil, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import './style/Home.css';
 import { useUserContext } from '../../context/UserContext';
 
 const Home = () => {
   const [activeTab, setActiveTab] = useState('mcq');
   const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [quizzes, setQuizzes] = useState([]); 
+  const [quizzes, setQuizzes] = useState([]);
   const navigate = useNavigate();
   const userCtx = useUserContext();
 
@@ -77,16 +77,23 @@ const Home = () => {
                   >
                     Tạo Flashcard
                   </Link>
+                  <Link
+                    to="/createbyAI"
+                    className="dropdown-item"
+                    onClick={() => setDropdownOpen(false)}
+                  >
+                    Tạo quiz bằng AI
+                  </Link>
                 </div>
               )}
             </div>
             <button
-                          className="logout-button"
-                          onClick={handleLogout}
-                          aria-label="Đăng xuất"
-                        >
-                          <FontAwesomeIcon icon={faRightFromBracket }className="logout-icon" />
-                        </button>
+              className="logout-button"
+              onClick={handleLogout}
+              aria-label="Đăng xuất"
+            >
+              <FontAwesomeIcon icon={faRightFromBracket} className="logout-icon" />
+            </button>
           </div>
         </header>
         <div className="home-content">
@@ -109,8 +116,8 @@ const Home = () => {
               mcqQuizzes.length > 0 ? (
                 mcqQuizzes.map((quiz) => (
                   <div key={quiz.id}
-                  className="quiz-card"
-                  onClick={() => handleQuizClick(quiz)} >
+                    className="quiz-card"
+                    onClick={() => handleQuizClick(quiz)} >
                     <h3>{quiz.title}</h3>
                     <div className="quiz-actions">
                       <button
@@ -126,7 +133,7 @@ const Home = () => {
                       <button
                         className="quiz-action-button delete-button"
                         onClick={(e) => {
-                          e.stopPropagation(); 
+                          e.stopPropagation();
                           handleDeleteQuiz(quiz.id);
                         }}
                         aria-label="Xóa quiz"
@@ -145,15 +152,16 @@ const Home = () => {
               flashcardQuizzes.length > 0 ? (
                 flashcardQuizzes.map((quiz) => (
                   <div key={quiz.id}
-                  className="quiz-card"
-                  onClick={() => handleQuizClick(quiz)}>
+                    className="quiz-card"
+                    onClick={() => handleQuizClick(quiz)}>
                     <h3>{quiz.title}</h3>
                     <div className="quiz-actions">
                       <button
                         className="quiz-action-button edit-button"
                         onClick={(e) => {
                           e.stopPropagation();
-                          handleEditQuiz(quiz)}}
+                          handleEditQuiz(quiz)
+                        }}
                         aria-label="Chỉnh sửa flashcard"
                       >
                         <FontAwesomeIcon icon={faPencil} />
@@ -173,8 +181,8 @@ const Home = () => {
                 ))
               ) : (
                 <div className="no-quiz-container">
-                <p>Chưa có flashcard nào!</p>
-              </div>
+                  <p>Chưa có flashcard nào!</p>
+                </div>
               )
             )}
           </div>

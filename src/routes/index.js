@@ -8,6 +8,7 @@ import CreateMCQ from '../pages/quiz/CreateMCQ';
 import CreateFlashcard from '../pages/quiz/CreateFlashcard';
 import DoMCQ from '../pages/quiz/DoMCQ';
 import DoFlashcard from '../pages/quiz/DoFlashcard';
+import CreateByAI from '../pages/quiz/CreateByAI';
 const AppRoutes = () => {
   return (
     <Router>
@@ -21,6 +22,7 @@ const AppRoutes = () => {
         <Route path="/create-flashcard" element={<CreateFlashcard />} />
         <Route path="/mcqs/:quizId" element={<DoMCQ />} />
         <Route path="/flashcards/:quizId" element={<DoFlashcard />} />
+        <Route path="/createbyAI" element={<CreateByAI />} />
       </Routes>
     </Router>
   );
