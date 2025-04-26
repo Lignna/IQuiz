@@ -9,6 +9,6 @@ import java.util.Optional;
 import java.util.UUID;
 
 @Repository
-public interface MultipleChoiceRepository extends JpaRepository<MultipleChoice, String> {
+public interface MultipleChoiceRepository extends JpaRepository<MultipleChoice, Long> {
     Optional<MultipleChoice> findByUuid(UUID uuid);
 }

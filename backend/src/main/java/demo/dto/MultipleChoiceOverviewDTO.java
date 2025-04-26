@@ -14,7 +14,6 @@ import java.time.LocalDateTime;
 public class MultipleChoiceOverviewDTO {
     private String uuid;
     private String title;
-    private LocalDateTime createdAt;
     private LocalDateTime lastUpdatedAt;
     private int questionCount;
 }

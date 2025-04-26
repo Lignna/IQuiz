@@ -28,7 +28,7 @@ public class MultipleChoiceQuestion {
     private MultipleChoice multipleChoice;
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     private MultipleChoiceOption correctOption;
-    @OneToMany(mappedBy = "multipleChoiceQuestion", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "multipleChoiceQuestion", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     List<MultipleChoiceOption> options;
 
     public static MultipleChoiceQuestion createMCQuestion(MultipleChoice multipleChoice, String question, String explanation) {
@@ -39,12 +39,5 @@ public class MultipleChoiceQuestion {
         multipleChoiceQuestion.setExplanation(explanation);
 
         return multipleChoiceQuestion;
-    }
-
-    public void setCorrectOption(MultipleChoiceOption correctOption) {
-        if (!options.contains(correctOption)) {
-            throw new IllegalArgumentException("Correct option must be one of the available options.");
-        }
-        this.correctOption = correctOption;
     }
 }

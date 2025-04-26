@@ -17,7 +17,7 @@ public class CorConfig {
         config.addAllowedMethod("*"); // Allow all HTTP methods
         config.addAllowedHeader("*"); // Allow all headers
         config.setAllowCredentials(true); // ✅ Needed for cookies
-        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://localhost:5173");
 
         source.registerCorsConfiguration("/**", config);
 

@@ -34,20 +34,22 @@ public class MultipleChoiceController {
             HttpSession session
     ) {
         String title = (String) data.get("title");
+        String explanation = (String) data.get("explanation");
         List<Map<String, Object>> questions = (List<Map<String, Object>>) data.get("questions");
 
-        return ResponseEntity.ok(multipleChoiceService.createQuiz(session, title, questions).toMap());
+        return ResponseEntity.ok(multipleChoiceService.createQuiz(session, title, questions, explanation).toMap());
     }
 
     @PutMapping("/{uuid}")
     public ResponseEntity<Map<String, Object>> updateQUiz(
             @PathVariable(name = "uuid") UUID uuid,
-            @RequestBody Map<String, String> data,
+            @RequestBody Map<String, Object> data,
             HttpSession session
     ) {
-        String title = data.get("title");
+        String title = (String) data.get("title");
+        List<Map<String, Object>> questions = (List<Map<String, Object>>) data.get("questions");
 
-        return ResponseEntity.ok(multipleChoiceService.updateQuiz(session, uuid, title).toMap());
+        return ResponseEntity.ok(multipleChoiceService.updateQuiz(session, uuid, title, questions).toMap());
     }
 
     @DeleteMapping("/{uuid}")

@@ -18,8 +18,10 @@ import java.util.UUID;
 @NoArgsConstructor
 public class Flashcard {
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(nullable = false, unique = true, updatable = false)
+    private UUID uuid = UUID.randomUUID();  // 💥 generate UUID yourself
     private String title;
     @ManyToOne
     private User uploader;

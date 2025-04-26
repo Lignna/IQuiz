@@ -16,6 +16,4 @@ import java.time.LocalDateTime;
 public class MultipleChoiceOptionDTO {
     private Long id;
     private String answer;
-    private LocalDateTime createdAt;
-    private boolean isCorrect;
 }

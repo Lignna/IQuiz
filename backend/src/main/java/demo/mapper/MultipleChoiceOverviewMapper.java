@@ -11,7 +11,6 @@ public class MultipleChoiceOverviewMapper {
 
         dto.setUuid(multipleChoice.getUuid().toString());
         dto.setTitle(multipleChoice.getTitle());
-        dto.setCreatedAt(multipleChoice.getCreatedAt());
         dto.setQuestionCount(multipleChoice.getQuestions().size());
 
         return dto;

@@ -9,7 +9,6 @@ public class MultipleChoiceOptionMapper {
 
         dto.setId(multipleChoiceOption.getId());
         dto.setAnswer(multipleChoiceOption.getAnswer());
-        dto.setCreatedAt(multipleChoiceOption.getCreatedAt());
 
         return dto;
     }

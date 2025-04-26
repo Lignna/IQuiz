@@ -17,10 +17,17 @@ public class MultipleChoiceQuestionMapper {
         dto.setExplanation(multipleChoiceQuestion.getExplanation());
         dto.setCreatedAt(multipleChoiceQuestion.getCreatedAt());
 
-        List<MultipleChoiceOptionDTO> optionDTOList = new ArrayList<>();
+        for (int i = 0; i < multipleChoiceQuestion.getOptions().size(); i++) {
+            if (multipleChoiceQuestion.getCorrectOption().getId() == multipleChoiceQuestion.getOptions().get(i).getId()) {
+                dto.setCorrectOptionIndex(i);
+                break;
+            }
+        }
+
+        List<String> optionDTOList = new ArrayList<>();
         List<MultipleChoiceOption> multipleChoiceOptions = multipleChoiceQuestion.getOptions();
         for (MultipleChoiceOption option : multipleChoiceOptions) {
-            optionDTOList.add(MultipleChoiceOptionMapper.toDTO(option));
+            optionDTOList.add(option.getAnswer());
         }
         dto.setOptions(optionDTOList);
 

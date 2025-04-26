@@ -21,5 +21,6 @@ public class MultipleChoiceQuestionDTO {
     private String question;
     private String explanation;
     private LocalDateTime createdAt;
-    private List<MultipleChoiceOptionDTO> options;
+    private List<String> options;
+    private long correctOptionIndex;
 }
